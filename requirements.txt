@@ -5,4 +5,7 @@ imageio-ffmpeg==0.6.0
 imageio==2.37.0
 numpy==1.24.4
 pillow==11.3.0
+google-api-python-client==2.70.0
+google-auth==2.22.0
+google-auth-httplib2==0.1.0
 tqdm==4.67.1
