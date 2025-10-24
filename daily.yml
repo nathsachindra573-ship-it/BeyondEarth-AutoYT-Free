@@ -1,0 +1,33 @@
+name: BeyondEarth Daily Short
+
+on:
+  schedule:
+    - cron: '30 3 * * *'   # runs daily at 03:30 UTC => 09:00 IST
+  workflow_dispatch: {}
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run main.py
+        env:
+          PEXELS_API: ${{ secrets.PEXELS_API }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          UPLOAD_TITLE_PREFIX: ${{ secrets.UPLOAD_TITLE_PREFIX }}
+        run: |
+          python main.py
